@@ -20,7 +20,7 @@ def filmes():
 
     for dataBox in soup.find_all("div",class_="card card-entity card-entity-list cf"):
         nomeObj = dataBox.find("h2", class_="meta-title").find("a", class_="meta-title-link")
-        # imgObj = dataBox.find("figure", class_="thumbnail").find("a", class_="xXx thumbnail-container thumbnail-link")
+        imgObj = dataBox.find("figure", class_="thumbnail")
         sinopseObj = dataBox.find("div", class_="synopsis")
         dataObj = dataBox.find("div", class_="meta-body").find("div", class_="meta-body-item meta-body-info")\
             .find("span", class_="date")
@@ -28,7 +28,7 @@ def filmes():
 
         #PARTE3
         data.append({'nome': nomeObj.text.strip(),
-                     # 'poster': imgObj.img['src'].strip(),
+                     'poster': imgObj.img['data-src'].strip(),
                      'sinopse': sinopseObj.text.strip(),
                      'data': dataObj.text.strip()})
 
