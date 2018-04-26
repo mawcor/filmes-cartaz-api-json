@@ -20,17 +20,17 @@ def filmes():
 
     for dataBox in soup.find_all("div",class_="card card-entity card-entity-list cf"):
         nomeObj = dataBox.find("h2", class_="meta-title").find("a", class_="meta-title-link")
-        # imgObj = dataBox.find(class_="img_side_content")
-        # sinopseObj = dataBox.find("div", class_="content").find("p")
-        # dataObj = dataBox.find("ul", class_="list_item_p2v tab_col_first").find("div", class_="oflow_a")
+        # imgObj = dataBox.find("figure", class_="thumbnail").find("a", class_="xXx thumbnail-container thumbnail-link")
+        sinopseObj = dataBox.find("div", class_="synopsis")
+        dataObj = dataBox.find("div", class_="meta-body").find("div", class_="meta-body-item meta-body-info")\
+            .find("span", class_="date")
 
 
         #PARTE3
-        # data.append({'nome': nomeObj.text.strip(),
-        #              'poster': imgObj.img['src'].strip(),
-        #              'sinopse': sinopseObj.text.strip(),
-        #              'data': dataObj.text.strip()})
-        data.append({'nome': nomeObj.text.strip()})
+        data.append({'nome': nomeObj.text.strip(),
+                     # 'poster': imgObj.img['src'].strip(),
+                     'sinopse': sinopseObj.text.strip(),
+                     'data': dataObj.text.strip()})
 
     return jsonify({'filmes': data})
 
@@ -38,4 +38,7 @@ def filmes():
 #PARTE4
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='127.0.0.1', port=port)
+    # app.run(host='127.0.0.1', port=port)
+
+    # Tem que ser 0.0.0.0 para rodar no Heroku
+    app.run(host='0.0.0.0', port=port)
